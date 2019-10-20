@@ -8,6 +8,7 @@ public class Obstaculo {
 	
 	double ancho, alto, posx, posy,angulo;
 	double bordeIz, bordeDer;
+	double[]laterales=new double [10];
 
 	Obstaculo(){
 		
@@ -19,7 +20,22 @@ public class Obstaculo {
 		setAncho(50);
 		setBordeDer();
 		setBordeIz();
+		setLaterales();
 
+	}
+	private void setLaterales() {
+		double aux=posy;
+		for(int i=0;i<laterales.length;i++) {
+			if(i<laterales.length/2) {
+				laterales[i]=aux;
+				aux+=10;
+			}else {
+				aux=posy;
+				laterales[i]=aux;
+				aux-=10;
+			}
+			
+		}
 	}
 	double getAncho() {
 		return this.ancho;
@@ -40,12 +56,12 @@ public class Obstaculo {
 
 
 	private void setBordeIz() {
-		this.bordeIz = posx - (ancho / 2) - 25;
+		this.bordeIz = posx - (ancho / 2) - 30;
 		
 	}
 
 	private void setBordeDer() {
-		this.bordeDer = (posx + ancho / 2) + 25;
+		this.bordeDer = (posx + ancho / 2) + 30;
 		
 	}
 
@@ -61,12 +77,25 @@ public class Obstaculo {
 
 	void setPosy(double y) {
 		this.posy=y;
+		actualizar();
 		
 	}
 
 	void setPosx(double x) {
 		this.posx=x;
+		actualizar();
 		
+	}
+	
+	public void imprimir() {
+		for(int i=0;i<laterales.length;i++) {
+			System.out.println(laterales[i]);
+		}
+	}
+	
+	void actualizar() {
+		setBordeDer();
+		setBordeIz();
 	}
 
 }

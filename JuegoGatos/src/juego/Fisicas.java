@@ -17,6 +17,34 @@ public class Fisicas {
 		return false;
 	}
 	
+	public static boolean contacto(Personajes gato, Estructura[] es) {
+		for(int a=0; a<es.length;a++) {
+			Obstaculo[] vigas = es[a].objeto;
+			for (int i = 0; i < vigas.length; i++) {
+				if(gato.derecha) {
+					if (gato.getPosX() + gato.getAncho()== vigas[i].posx) {
+						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25) {
+							
+							return false;
+						}
+						
+					}
+				}else {
+					if (gato.getPosX() - gato.getAncho() <= vigas[i].posx) {
+						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25)  {
+
+							return false;
+						}
+						
+					}
+				}
+
+			}
+
+		}
+		return true;
+	}
+	
 	
 
 }

@@ -40,11 +40,9 @@ public class Estructura {
 		double auxX=posx;
 		double auxY=posy;
 		int aux=0;
-		System.out.println(objeto.length);
 		for (int i = 0; i < objeto.length; i++) {
-			System.out.println("numero "+ aux);
 			if(aux<ancho) {
-				System.out.println("dibuja");
+				
 				objeto[i] = new Obstaculo (auxX,auxY);
 				auxX+=objeto[i].getAncho();
 			}
@@ -54,13 +52,50 @@ public class Estructura {
 					auxY+=objeto[i-1].getAncho();
 					aux=-1;
 				}
-				System.out.println("pasa por aca " + i);
 				objeto[i] = new Obstaculo (auxX,auxY);			
 			}
 			aux++;
 
 		}
 		
+	}
+	
+	private void setPos(Obstaculo[] objeto) {
+		double auxX=posx;
+		double auxY=posy;
+		int aux=0;
+		for (int i = 0; i < objeto.length; i++) {
+			if(aux<ancho) {
+				
+				objeto[i].setPosx(auxX);
+				objeto[i].setPosy(auxY);
+				auxX+=objeto[i].getAncho();
+			}
+			else{
+				if(aux==ancho) {
+					auxX=posx;
+					auxY+=objeto[i-1].getAncho();
+					aux=-1;
+				}
+				objeto[i].setPosx(auxX);
+				objeto[i].setPosy(auxY);			
+			}
+			aux++;
+
+		}
+		
+	}
+	
+	void moverD() {
+		this.posy = posy + (float) Math.sin(0.0);
+		this.posx = posx + (float) Math.cos(0.0);
+		setPos(objeto);
+	}
+	
+	void moverI() {
+		this.posy = posy - (float) Math.sin(0.0);
+		this.posx = posx - (float) Math.cos(0.0);
+		setPos(objeto);
 	}
 	
 	void Dibujar(Entorno e) {
