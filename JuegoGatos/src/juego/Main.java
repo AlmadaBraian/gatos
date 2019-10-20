@@ -70,7 +70,9 @@ public class Main extends InterfaceJuego{
 		dibujarMapa();
 		mover();
 		comprobar();
-		System.out.println(gato.getPosX());
+		System.out.println("x " + gato.getPosX()+" y "+ gato.getPosY());
+		System.out.println("objeto e: x "+ mapa[3].posx+" y "+ mapa[3].posy);
+		System.out.println(gato.derecha);
 		
 		if (gato.isSaltar()) {
 			contador++;

@@ -22,17 +22,19 @@ public class Fisicas {
 			Obstaculo[] vigas = es[a].objeto;
 			for (int i = 0; i < vigas.length; i++) {
 				if(gato.derecha) {
-					if (gato.getPosX() + gato.getAncho()== vigas[i].posx) {
+					
+					if (gato.getPosX() + gato.getAncho()+5>= vigas[i].posx && gato.getPosX() + gato.getAncho()-5<= vigas[i].posx) {
 						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25) {
-							
+							System.out.println("contacto");
 							return false;
 						}
 						
 					}
 				}else {
-					if (gato.getPosX() - gato.getAncho() <= vigas[i].posx) {
+					
+					if (gato.getPosX() - gato.getAncho()-5<= vigas[i].posx && gato.getPosX() - gato.getAncho()+5>= vigas[i].posx) {
 						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25)  {
-
+							System.out.println("contacto");
 							return false;
 						}
 						
