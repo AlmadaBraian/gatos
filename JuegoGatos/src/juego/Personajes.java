@@ -11,7 +11,8 @@ public class Personajes {
 	private double alto;
 	private double angulo;
 	private double peso;
-	private boolean estado, saltar;
+	private boolean estado;
+	boolean saltar;
 	boolean derecha;
 	private boolean contacto;
 	private boolean vulnerable;
@@ -38,8 +39,11 @@ public class Personajes {
 		this.y = i;
 	}
 
-	public void setPosX(int x) {
-		this.x = x;
+	public void setPosX(double d) {
+		this.x = d;
+	}
+	public void setPosY(double d) {
+		this.y = d;
 	}
 
 	public double getPosX() {

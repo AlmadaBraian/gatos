@@ -6,11 +6,13 @@ public class Fisicas {
 		for(int a=0; a<es.length;a++) {
 			Obstaculo[] vigas = es[a].objeto;
 			for (int i = 0; i < vigas.length; i++) {
-				if (mago.getPosY() + mago.getAlto() == vigas[i].posy) {
+				if (mago.getPosY() + mago.getAlto() <= vigas[i].posy && mago.getPosY() + mago.getAlto() >= vigas[i].posy) {
 					if (mago.getPosX() > vigas[i].bordeIz && mago.getPosX() < vigas[i].bordeDer) {
+						//mago.setPosY(vigas[i].posy-50);
 						return true;
 					}
 				}
+				
 			}
 		}
 
@@ -18,13 +20,14 @@ public class Fisicas {
 	}
 	
 	public static boolean contacto(Personajes gato, Estructura[] es) {
+		double anchoObjeto=(es[0].objeto[0].ancho)/2;
 		for(int a=0; a<es.length;a++) {
 			Obstaculo[] vigas = es[a].objeto;
 			for (int i = 0; i < vigas.length; i++) {
-				if(gato.derecha) {
+				if(gato.derecha ) {
 					
-					if (gato.getPosX() + gato.getAncho()+5>= vigas[i].posx && gato.getPosX() + gato.getAncho()-5<= vigas[i].posx) {
-						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25) {
+					if (gato.getPosX() + gato.getAncho()+7>= vigas[i].posx && gato.getPosX() + gato.getAncho()-7<= vigas[i].posx) {
+						if(gato.getPosY()<= vigas[i].posy+anchoObjeto && gato.getPosY()>= vigas[i].posy-anchoObjeto) {
 							System.out.println("contacto");
 							return false;
 						}
@@ -32,8 +35,8 @@ public class Fisicas {
 					}
 				}else {
 					
-					if (gato.getPosX() - gato.getAncho()-5<= vigas[i].posx && gato.getPosX() - gato.getAncho()+5>= vigas[i].posx) {
-						if(gato.getPosY()<= vigas[i].posy+25 && gato.getPosY()>= vigas[i].posy-25)  {
+					if (gato.getPosX() - gato.getAncho()-7<= vigas[i].posx && gato.getPosX() - gato.getAncho()+7>= vigas[i].posx) {
+						if(gato.getPosY()<= vigas[i].posy+anchoObjeto && gato.getPosY()>= vigas[i].posy-anchoObjeto)  {
 							System.out.println("contacto");
 							return false;
 						}
@@ -46,6 +49,26 @@ public class Fisicas {
 		}
 		return true;
 	}
+	public static void correccion(Personajes gato, Estructura[] es) {
+		
+		double anchoObjeto=(es[0].objeto[0].ancho)/2;
+		
+		for(int a=0; a<es.length;a++) {
+			Obstaculo[] vigas = es[a].objeto;
+			for (int i = 0; i < vigas.length; i++) {
+				if(gato.getPosY()== vigas[i].posy)  {
+					if(gato.getPosX()<=vigas[i].posx+anchoObjeto && gato.getPosX()>=vigas[i].posx-anchoObjeto) {
+							gato.setPosY(vigas[i].posy-vigas[i].getAlto()-7);
+						
+					}
+				}
+
+			}
+		}
+
+	}
+	
+
 	
 	
 

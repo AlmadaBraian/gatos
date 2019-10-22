@@ -9,6 +9,8 @@ public class Estructura {
 	double posx,posy;
 	int ancho, alto;
 	Obstaculo[] objeto;
+	Color color;
+	
 	
 	Estructura(double posx,double posy,int ancho, int alto){
 		objeto = new Obstaculo[(ancho*alto)+1];
@@ -16,7 +18,18 @@ public class Estructura {
 		this.alto=alto;
 		setPosx(posx);
 		setPosy(posy);
+		this.color=Color.gray;
 		setObjeto(objeto);
+		
+	}
+	Estructura(double posx,double posy,int ancho, int alto,Color color){
+		objeto = new Obstaculo[(ancho*alto)+1];
+		this.ancho=ancho;
+		this.alto=alto;
+		setPosx(posx);
+		setPosy(posy);
+		setObjeto(objeto);
+		this.color=color;
 		
 	}
 
@@ -98,10 +111,20 @@ public class Estructura {
 		setPos(objeto);
 	}
 	
+	void moverArr() {
+		this.posy = 5+posy;
+		setPos(objeto);
+	}
+	
+	void moverAb() {
+		this.posy = posy - 7;
+		setPos(objeto);
+	}
+	
 	void Dibujar(Entorno e) {
 
 		for (int i = 0; i < this.objeto.length; i++) {
-			this.objeto[i].Dibujar(e, Color.gray);
+			this.objeto[i].Dibujar(e, color);
 		}
 
 	}
