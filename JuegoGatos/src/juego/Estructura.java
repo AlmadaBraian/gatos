@@ -129,6 +129,19 @@ public class Estructura {
 
 	}
 	
+	void Dibujar(Entorno e,int pos, Color color) {
+
+		for (int i = 0; i < this.objeto.length; i++) {
+			if(i!=pos) {
+				this.objeto[i].Dibujar(e, this.color);
+			}else {
+				this.objeto[i].Dibujar(e, color);
+			}
+			
+		}
+
+	}
+	
 	
 	
 

@@ -13,7 +13,7 @@ public class Main extends InterfaceJuego{
 	int ancho = 800, alto = 600;
 	int mapaPosx=0, mapaPosy=0;
 	Personajes gato;
-	Mapa mapa;
+	Nivel nivel=new Nivel();
 	boolean salto=false,moverMapa=false,caer=true,arriba=false,abajo=false;
 	int contador = 0, vueltasSalto = 23;
 	//Obstaculo a = new Obstaculo(130, 250);
@@ -21,39 +21,46 @@ public class Main extends InterfaceJuego{
 	Main(){
 		this.entorno = new Entorno(this, "Gato loco - V0.01", ancho, alto);
 		this.gato=new Personajes(200, 150, 50.0, 50.0, 0);
-		this.mapa=Nivel1.mapa;
+
 		this.entorno.iniciar();
 		//entorno.dibujarRectangulo(gato.getPosX(), gato.getPosY(), gato.getAncho(), gato.getAlto(), 0.0, Color.gray);
 	}
 	
 	public void dibujarMapa() {
-		for(int i=0;i<mapa.length;i++) {
+		for(int i=0;i<nivel.mapa.length;i++) {
 			if(moverMapa) {
 				if(gato.derecha==false) {
-					mapa.mapa[i].moverD();
+					nivel.mapa.mapa[i].moverD();
 					if (gato.isSaltar()) {
 						for (int a = 0; a < 4; a++) {
-							mapa.mapa[i].moverD();
+							nivel.mapa.mapa[i].moverD();
 
 						}
 					}
 				}else {
-					mapa.mapa[i].moverI();
+					nivel.mapa.mapa[i].moverI();
 					if (gato.isSaltar()) {
 						for (int a = 0; a < 4; a++) {
-							mapa.mapa[i].moverI();
+							nivel.mapa.mapa[i].moverI();
 
 						}
 					}
 				}
 				if(arriba) {
-					mapa.mapa[i].moverArr();
+					nivel.mapa.mapa[i].moverArr();
 				}if(abajo) {
-					mapa.mapa[i].moverAb();
+					nivel.mapa.mapa[i].moverAb();
 				}
 			}
-			mapa.mapa[i].Dibujar(entorno);
+			nivel.dibujar(entorno, i);	
 		}
+		for(int i=0;i<nivel.eventos.length;i++) {
+			nivel.eventos[i].contacto(gato);
+		}
+		//nivel.ev1.contacto(gato);
+		//nivel.actualizarEvento(entorno);
+		//nivel.ev1.actualizarPos(nivel.eventoPosx, nivel.eventoPosy);
+		
 	}
 
 	
@@ -65,9 +72,10 @@ public class Main extends InterfaceJuego{
 		mover();
 		//Fisicas.correccion(gato, mapa);
 		comprobar();
-		System.out.println("x " + gato.getPosX()+" y "+ gato.getPosY());
-		System.out.println("objeto b: x "+ mapa.mapa[1].objeto[0].posx+" y "+ mapa.mapa[1].objeto[0].posy);
-		System.out.println("caer: "+caer);
+		//System.out.println("x " + gato.getPosX()+" y "+ gato.getPosY());
+		//System.out.println("objeto b: x "+ nivel.mapa.mapa[3].objeto[0].posx+" y "+ nivel.mapa.mapa[3].objeto[0].posy);
+		//System.out.println("evento: x "+ nivel.ev1.posx+" y "+ nivel.ev1.posy);
+		//System.out.println("caer: "+caer);
 		
 		if (gato.isSaltar()) {
 			contador++;
@@ -79,7 +87,7 @@ public class Main extends InterfaceJuego{
 			}
 		}
 		//a.imprimir();
-		if(Fisicas.colision(gato, mapa.mapa)==false) {
+		if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
 			gato.caer();
 			caer=true;
 		}else {
@@ -95,7 +103,7 @@ public class Main extends InterfaceJuego{
 		moverMapa=false;
 		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
 			gato.derecha = false;
-			if(gato.getPosX()<=140 && Fisicas.contacto(gato, mapa.mapa)) {
+			if(gato.getPosX()<=140 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
 				moverMapa=true;
 			}else {
 				gato.mover = true;
@@ -105,7 +113,7 @@ public class Main extends InterfaceJuego{
 		}
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			gato.derecha = true;
-			if(gato.getPosX()>=530 && Fisicas.contacto(gato, mapa.mapa)) {
+			if(gato.getPosX()>=530 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
 				moverMapa=true;
 			}else {
 				gato.mover = true;
@@ -121,7 +129,7 @@ public class Main extends InterfaceJuego{
 		}else {
 			arriba=false;
 		}
-		if(gato.getPosY()>=360 && Fisicas.colision(gato, mapa.mapa)==false){
+		if(gato.getPosY()>=360 && Fisicas.colision(gato, nivel.mapa.mapa)==false){
 			gato.setPosY(gato.getPosY()-12);
 			moverMapa=true;
 			abajo=true;
@@ -135,12 +143,12 @@ public class Main extends InterfaceJuego{
 	public void mover() {
 		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
 			for (int a = 0; a < 2; a++) {
-				if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
+				if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
 					gato.retroceder();
 					if (gato.isSaltar()) {
 						for (int i = 0; i < 3; i++) {
-							if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
-								if(Fisicas.colision(gato, mapa.mapa)==false) {
+							if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
+								if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
 									gato.retroceder();
 								}
 								
@@ -149,8 +157,8 @@ public class Main extends InterfaceJuego{
 						}
 					}
 					if(caer&&gato.isSaltar()==false) {
-						if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
-							if(Fisicas.colision(gato, mapa.mapa)==false) {
+						if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
+							if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
 								gato.retroceder();
 							}
 							
@@ -164,12 +172,12 @@ public class Main extends InterfaceJuego{
 		}
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			for (int a = 0; a < 2; a++) {
-				if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
+				if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
 					gato.avanzar();
 						if (gato.isSaltar()) {
 							for (int i = 0; i < 3; i++) {
-								if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
-									if(Fisicas.colision(gato, mapa.mapa)==false) {
+								if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
+									if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
 										gato.avanzar();
 									}
 									
@@ -179,8 +187,8 @@ public class Main extends InterfaceJuego{
 
 						}
 						if(caer&&gato.isSaltar()==false) {
-							if(Fisicas.contacto(gato, mapa.mapa)&&gato.mover) {
-								if(Fisicas.colision(gato, mapa.mapa)==false) {
+							if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
+								if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
 									gato.avanzar();
 								}
 								

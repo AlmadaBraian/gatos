@@ -68,6 +68,16 @@ public class Fisicas {
 
 	}
 	
+	public static double distancia(Personajes gato,double posx, double posy) {
+		double a =(gato.getPosX()-posx);
+		a *=a;
+		double b =(gato.getPosY()-posy);
+		b *=b;
+		double distancia = (Math.sqrt(a+b))/50;
+		
+		return distancia;
+	}
+	
 
 	
 	
