@@ -7,8 +7,8 @@ import entorno.Entorno;
 public class Evento {
 	
 	double posx,posy;
-	boolean activado=true;
-	int estr, obj,modx,mody;
+	boolean activado=true,fin=true;
+	int estr, obj,modx,mody,instruccion;
 	boolean rep = false;
 	Audio gatowav= new Audio("Gato miau 2.wav");
 	

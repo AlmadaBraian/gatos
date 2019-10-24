@@ -11,10 +11,14 @@ public class Nivel {
 	Mapa mapa;
 	Evento[] eventos;
 	Media musica;
+	boolean moverMapa=false,arriba=false,abajo=false;
+	int mov=0, a=0;
+	Estructura movil;
 	
 	Nivel(){
-		Estructura[]ni= {new Estructura(130,350,4,1),new Estructura(130,250,1,10),new Estructura(20,500,20,2),new Estructura(450,350,2,2,Color.red)};
-		this.mapa=new Mapa(4, ni);
+		Estructura[]ni= {new Estructura(130,350,4,1,1),new Estructura(130,250,1,10,1),new Estructura(20,500,20,2,1),new Estructura(450,350,2,1,0,Color.red),new Estructura(250,250,2,1,0,Color.red)};
+		this.mapa=new Mapa(ni);
+		this.movil=ni[4];
 		this.eventos=new Evento[4];
 		
 		this.musica=  new Media(new File("Electronic-ambient-background-beat.mp3").toURI().toString());
@@ -41,6 +45,46 @@ public class Nivel {
 	
 	
 	public void actualizarEvento(Entorno e) {
+		movil=mapa.mapa[4];
+		if(a==0) {
+			if(mov<=600) {
+				movil.derecha=true;
+				movil.quieto=false;
+				movil.moverD(0.5);
+				mov++;
+				if(mov==600) {
+					a++;
+				}
+			}		
+		}
+		if(a==1) {
+			movil.quieto=true;
+			mov++;
+			if(mov==1000) {
+				a++;
+				mov=600;
+			}		
+		}
+		if(a==2) {
+			if(mov>=0) {
+				movil.derecha=false;
+				movil.quieto=false;
+				movil.moverI(0.5);
+				mov--;
+				if(mov==0) {
+					a++;
+				}
+			}
+		}
+		if(a==3) {
+			movil.quieto=true;
+			mov++;
+			if(mov==400) {
+				a=0;
+				mov=0;
+			}
+		}
+		
 		for(int i=0; i<this.eventos.length;i++) {
 			int estr=eventos[i].estr;
 			int obj=eventos[i].obj;
@@ -63,6 +107,73 @@ public class Nivel {
 	}
 	
 	public void evento(Personajes gato) {
+		if (Fisicas.colision(gato, movil)) {
+			if(movil.quieto==false) {
+				if(movil.derecha) {
+					gato.avanzar(2.5);
+
+
+				}else {
+					gato.retroceder(2.5);
+
+
+				}
+			}
+		}
+		int instruccion=eventos[3].instruccion;
+		for(int i=0;i<this.eventos.length;i++) {
+			eventos[i].contacto(gato);
+		}
+		if(eventos[3].fin) {
+			if(eventos[3].activado==false) {
+				this.moverMapa=true;
+				gato.mov=false;
+				if(instruccion==0) {
+					gato.avanzar(2);
+					if(gato.getPosX()>=300) {
+						eventos[3].instruccion++;
+					}
+				}
+				
+				if(gato.getPosX()==300 && instruccion==1) {
+					
+					if(gato.getPosX()==300) {
+						gato.setSaltar(true);
+						eventos[3].instruccion++;
+					}
+
+				}
+				if(instruccion==2) {
+					gato.avanzar(2);
+					if(gato.getPosX()>=450) {
+						eventos[3].instruccion++;
+					}
+					
+				}
+				if(instruccion==3) {
+					gato.retroceder(2);
+					if(gato.getPosX()<=350) {
+						eventos[3].instruccion++;
+					}
+					
+				}
+				if(instruccion==4) {
+					
+					gato.avanzar(2);
+					
+					if(gato.getPosX()>=800) {
+						gato.mov=true;
+						eventos[3].fin=false;
+						eventos[3].instruccion++;
+					}
+				}
+				
+				System.out.println(instruccion);
+				
+
+
+			}
+		}
 		
 	}
 	

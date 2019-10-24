@@ -16,7 +16,7 @@ public class Personajes {
 	boolean derecha;
 	private boolean contacto;
 	private boolean vulnerable;
-	public boolean mover;
+	public boolean mover,mov;
 	Audio saltarwav= new Audio("8bitkit-jump-9.wav");
 	
 	
@@ -29,6 +29,7 @@ public class Personajes {
 		this.peso = 10;
 		this.estado = true;
 		this.mover = false;
+		this.mov=true;
 		setSaltar(false);
 	}
 
@@ -80,20 +81,24 @@ public class Personajes {
 		e.dibujarRectangulo(this.x, this.y + 13, this.ancho, this.alto, this.angulo, color);
 	}
 
-	void avanzar() {
-		this.y = y + (float) Math.sin(angulo);
-		this.x = x + (float) Math.cos(angulo);
-		derecha = true;
+	void avanzar(double d) {
+		this.y = y + 0;//(float) Math.sin(angulo);
+		this.x = x +d; //(float) Math.cos(angulo);
+		this.derecha = true;
 	}
 
-	void retroceder() {
-		this.y = y - (float) Math.sin(angulo);
-		this.x = x - (float) Math.cos(angulo);
-		derecha = false;
+	void retroceder(double d) {
+		this.y = y - 0;//(float) Math.sin(angulo);
+		this.x = x - d;//(float) Math.cos(angulo);
+		this.derecha = false;
 	}
 
-	void caer() {
-		this.y = y + peso;
+	void caer(Nivel ni) {
+		if(Fisicas.colision(this,ni.mapa.mapa)==false) {
+			this.y = y + peso;
+		}
+			
+		
 
 	}
 

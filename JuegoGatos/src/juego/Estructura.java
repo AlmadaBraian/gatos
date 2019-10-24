@@ -10,10 +10,11 @@ public class Estructura {
 	int ancho, alto;
 	Obstaculo[] objeto;
 	Color color;
+	boolean derecha=false, quieto=true;
 	
 	
-	Estructura(double posx,double posy,int ancho, int alto){
-		objeto = new Obstaculo[(ancho*alto)+1];
+	Estructura(double posx,double posy,int ancho, int alto,int mod){
+		objeto = new Obstaculo[(ancho*alto)+mod];
 		this.ancho=ancho;
 		this.alto=alto;
 		setPosx(posx);
@@ -22,8 +23,8 @@ public class Estructura {
 		setObjeto(objeto);
 		
 	}
-	Estructura(double posx,double posy,int ancho, int alto,Color color){
-		objeto = new Obstaculo[(ancho*alto)+1];
+	Estructura(double posx,double posy,int ancho, int alto,int mod,Color color){
+		objeto = new Obstaculo[(ancho*alto)+mod];
 		this.ancho=ancho;
 		this.alto=alto;
 		setPosx(posx);
@@ -99,15 +100,15 @@ public class Estructura {
 		
 	}
 	
-	void moverD() {
-		this.posy = posy + (float) Math.sin(0.0);
-		this.posx = posx + (float) Math.cos(0.0);
+	void moverD(double velocidad) {
+		this.posy = posy + 0;
+		this.posx = posx + velocidad;
 		setPos(objeto);
 	}
 	
-	void moverI() {
-		this.posy = posy - (float) Math.sin(0.0);
-		this.posx = posx - (float) Math.cos(0.0);
+	void moverI(double velocidad) {
+		this.posy = posy - 0;
+		this.posx = posx - velocidad;
 		setPos(objeto);
 	}
 	
