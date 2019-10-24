@@ -69,9 +69,9 @@ public class Main extends InterfaceJuego{
 					}
 				}
 				if(nivel.arriba) {
-					nivel.mapa.mapa[i].moverArr();
+					nivel.mapa.mapa[i].moverArr(5);
 				}if(nivel.abajo) {
-					nivel.mapa.mapa[i].moverAb();
+					nivel.mapa.mapa[i].moverAb(5);
 				}
 			}
 			nivel.dibujar(entorno, i);	
@@ -87,9 +87,10 @@ public class Main extends InterfaceJuego{
 	
 	
 	public void tick() {
-		dibujartexto(entorno);
+		
 		gato.Dibujar(entorno);
 		dibujarMapa();
+		dibujartexto(entorno);
 		mover();
 		//Fisicas.correccion(gato, mapa);
 		comprobar();
@@ -110,7 +111,7 @@ public class Main extends InterfaceJuego{
 		}
 		//a.imprimir();
 		if(Fisicas.colision(gato, nivel.mapa.mapa)==false) {
-			gato.caer(nivel);
+			gato.caer();
 			caer=true;
 		}else {
 			caer=false;
@@ -143,16 +144,16 @@ public class Main extends InterfaceJuego{
 			
 		}
 		
-		if(gato.getPosY()<=20  && Fisicas.colision(gato, nivel.mapa.mapa)==false){
+		if(gato.getPosY()<=120){
 			nivel.moverMapa=true;
 			nivel.arriba=true;
-			gato.setPosY(gato.getPosY()+20);
+			gato.setPosY(gato.getPosY()+5);
 			
 		}else {
 			nivel.arriba=false;
 		}
 		if(gato.getPosY()>=360 && Fisicas.colision(gato, nivel.mapa.mapa)==false){
-			gato.setPosY(gato.getPosY()-12);
+			gato.setPosY(gato.getPosY()-5);
 			nivel.moverMapa=true;
 			nivel.abajo=true;
 		}else{
@@ -166,6 +167,7 @@ public class Main extends InterfaceJuego{
 	public void mover() {
 		if(gato.mov) {
 			if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+				gato.derecha=false;
 
 					if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
 						gato.retroceder(2);
@@ -192,6 +194,7 @@ public class Main extends InterfaceJuego{
 
 			}
 			if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+				gato.derecha=true;
 
 					if(Fisicas.contacto(gato, nivel.mapa.mapa)&&gato.mover) {
 						gato.avanzar(2);
@@ -234,6 +237,8 @@ public class Main extends InterfaceJuego{
 		e.escribirTexto("posy "+gato.getPosY(), 50, 70);
 		e.escribirTexto("saltar "+gato.saltar, 50, 90);
 		e.escribirTexto("caer "+caer, 50, 110);
+		e.escribirTexto("mover "+gato.mover, 50, 130);
+		e.escribirTexto("derecha "+gato.derecha, 50, 150);
 	}
 
 

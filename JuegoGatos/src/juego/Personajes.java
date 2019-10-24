@@ -93,12 +93,8 @@ public class Personajes {
 		this.derecha = false;
 	}
 
-	void caer(Nivel ni) {
-		if(Fisicas.colision(this,ni.mapa.mapa)==false) {
-			this.y = y + peso;
-		}
-			
-		
+	void caer() {
+		this.y = y + peso;
 
 	}
 

@@ -112,13 +112,13 @@ public class Estructura {
 		setPos(objeto);
 	}
 	
-	void moverArr() {
-		this.posy = 5+posy;
+	void moverArr(double velocidad){
+		this.posy = velocidad+posy;
 		setPos(objeto);
 	}
 	
-	void moverAb() {
-		this.posy = posy - 7;
+	void moverAb(double velocidad) {
+		this.posy = posy - velocidad;
 		setPos(objeto);
 	}
 	

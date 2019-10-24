@@ -56,12 +56,12 @@ public class Obstaculo {
 
 
 	private void setBordeIz() {
-		this.bordeIz = posx - (ancho / 2) - 35;
+		this.bordeIz = posx - (ancho / 2) - 30;
 		
 	}
 
 	private void setBordeDer() {
-		this.bordeDer = (posx + ancho / 2) + 35;
+		this.bordeDer = (posx + ancho / 2) + 30;
 		
 	}
 

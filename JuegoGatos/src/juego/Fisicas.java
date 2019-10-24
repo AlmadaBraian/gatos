@@ -23,7 +23,7 @@ public class Fisicas {
 		
 			Obstaculo[] vigas = es.objeto;
 			for (int i = 0; i < vigas.length; i++) {
-				if (mago.getPosY() + mago.getAlto() <= vigas[i].posy && mago.getPosY() + mago.getAlto() >= vigas[i].posy) {
+				if (mago.getPosY()<= vigas[i].posy && mago.getPosY()>= vigas[i].posy - mago.getAlto() ) {
 					if (mago.getPosX() > vigas[i].bordeIz && mago.getPosX() < vigas[i].bordeDer) {
 						//mago.setPosY(vigas[i].posy-50);
 						return true;

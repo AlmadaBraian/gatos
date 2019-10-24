@@ -16,7 +16,7 @@ public class Nivel {
 	Estructura movil;
 	
 	Nivel(){
-		Estructura[]ni= {new Estructura(130,350,4,1,1),new Estructura(130,250,1,10,1),new Estructura(20,500,20,2,1),new Estructura(450,350,2,1,0,Color.red),new Estructura(250,250,2,1,0,Color.red)};
+		Estructura[]ni= {new Estructura(130,350,4,1,1),new Estructura(130,250,1,10,1),new Estructura(20,500,520,2,1),new Estructura(450,350,2,1,0,Color.red),new Estructura(250,250,2,1,0,Color.red)};
 		this.mapa=new Mapa(ni);
 		this.movil=ni[4];
 		this.eventos=new Evento[4];
@@ -105,19 +105,49 @@ public class Nivel {
 		actualizarEvento(e);
 
 	}
+	public void moverMapa(Personajes gato) {
+		
+		if(gato.getPosX()<=140 && Fisicas.contacto(gato, mapa.mapa)) {
+			gato.avanzar(2);
+			for(int i=0; i<mapa.mapa.length;i++) {
+				mapa.mapa[i].moverD(2);
+			}
+			
+		}else {
+			gato.mover = true;
+		}
+		if(gato.getPosX()>=530 && Fisicas.contacto(gato, mapa.mapa)) {
+			gato.retroceder(2);
+			for(int i=0; i<mapa.mapa.length;i++) {
+				mapa.mapa[i].moverI(2);
+			}
+		}else {
+			gato.mover = true;
+		}
+	}
 	
 	public void evento(Personajes gato) {
+		//if(eventos[1].activado==false) {
+		//	gato.avanzar(0.5);
+		//	for(int i=0;i<mapa.length;i++) {
+		//		mapa.mapa[i].moverD(0.5);
+		//	}
+		//}
+		
 		if (Fisicas.colision(gato, movil)) {
 			if(movil.quieto==false) {
 				if(movil.derecha) {
+					gato.mover=true;
 					gato.avanzar(2.5);
 
 
 				}else {
+					gato.mover=true;
 					gato.retroceder(2.5);
 
 
 				}
+				moverMapa(gato);
 			}
 		}
 		int instruccion=eventos[3].instruccion;
@@ -130,6 +160,7 @@ public class Nivel {
 				gato.mov=false;
 				if(instruccion==0) {
 					gato.avanzar(2);
+					gato.mover=true;
 					if(gato.getPosX()>=300) {
 						eventos[3].instruccion++;
 					}
@@ -144,6 +175,7 @@ public class Nivel {
 
 				}
 				if(instruccion==2) {
+					gato.mover=true;
 					gato.avanzar(2);
 					if(gato.getPosX()>=450) {
 						eventos[3].instruccion++;
@@ -151,6 +183,7 @@ public class Nivel {
 					
 				}
 				if(instruccion==3) {
+					gato.mover=true;
 					gato.retroceder(2);
 					if(gato.getPosX()<=350) {
 						eventos[3].instruccion++;
@@ -158,10 +191,11 @@ public class Nivel {
 					
 				}
 				if(instruccion==4) {
-					
+					gato.mover=true;
 					gato.avanzar(2);
 					
 					if(gato.getPosX()>=800) {
+						gato.mover=false;
 						gato.mov=true;
 						eventos[3].fin=false;
 						eventos[3].instruccion++;
@@ -174,6 +208,7 @@ public class Nivel {
 
 			}
 		}
+		
 		
 	}
 	
