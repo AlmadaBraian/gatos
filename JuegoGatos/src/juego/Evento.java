@@ -9,15 +9,17 @@ public class Evento {
 	double posx,posy;
 	boolean activado=true;
 	int estr, obj,modx,mody;
+	boolean rep = false;
+	Audio gatowav= new Audio("Gato miau 2.wav");
 	
 	Evento(){
 		
 	}
-	Evento(double posx, double posy, int estr, int obj,int modx,int mody){
+	Evento(int estr,int obj, int modx, int mody){
 		this.modx=modx;
 		this.mody=mody;
-		this.posx=posx+modx;
-		this.posy=mody+posy-50;
+		this.posx=modx;
+		this.posy=-50+mody;
 		this.estr=estr;
 		this.obj=obj;
 	}

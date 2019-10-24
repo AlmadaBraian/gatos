@@ -1,9 +1,17 @@
 package juego;
 
 import java.awt.Color;
+
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.awt.Image;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -16,12 +24,30 @@ public class Main extends InterfaceJuego{
 	Nivel nivel=new Nivel();
 	boolean salto=false,moverMapa=false,caer=true,arriba=false,abajo=false;
 	int contador = 0, vueltasSalto = 23;
+	MediaPlayer mediaPlayer;
 	//Obstaculo a = new Obstaculo(130, 250);
 	
 	Main(){
+		final CountDownLatch latch = new CountDownLatch(1);
+		SwingUtilities.invokeLater(new Runnable() {
+		    public void run() {
+		        new JFXPanel(); // initializes JavaFX environment
+		        latch.countDown();
+		    }
+		});
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.entorno = new Entorno(this, "Gato loco - V0.01", ancho, alto);
 		this.gato=new Personajes(200, 150, 50.0, 50.0, 0);
-
+		this.mediaPlayer= new MediaPlayer(nivel.musica);
+		//mediaPlayer.setStartTime(Duration.seconds(0));
+		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		mediaPlayer.setVolume(0.5);
+		mediaPlayer.play();
 		this.entorno.iniciar();
 		//entorno.dibujarRectangulo(gato.getPosX(), gato.getPosY(), gato.getAncho(), gato.getAlto(), 0.0, Color.gray);
 	}
@@ -66,7 +92,6 @@ public class Main extends InterfaceJuego{
 	
 	
 	public void tick() {
-		
 		gato.Dibujar(entorno);
 		dibujarMapa();
 		mover();
@@ -202,11 +227,14 @@ public class Main extends InterfaceJuego{
 
 		}
 		if (entorno.sePresiono(entorno.TECLA_ARRIBA)) {
+			gato.saltarwav.sound.play();
 			gato.setSaltar(true);
 			salto = true;
 		}
 		
 	}
+
+
 	
 	public static void main(String[] args) {
 		new Main();

@@ -17,6 +17,8 @@ public class Personajes {
 	private boolean contacto;
 	private boolean vulnerable;
 	public boolean mover;
+	Audio saltarwav= new Audio("8bitkit-jump-9.wav");
+	
 	
 	Personajes (double x, double y, double ancho, double alto, double angulo) {
 		this.x = x;
