@@ -59,7 +59,7 @@ public class Main extends InterfaceJuego{
 				if(gato.derecha==false) {
 					nivel.mapa.mapa[i].moverD(2.5);
 					if (gato.isSaltar()) {
-							nivel.mapa.mapa[i].moverD(2);
+							nivel.mapa.mapa[i].moverD(2.5);
 					}
 				}else {
 					nivel.mapa.mapa[i].moverI(1.5);
@@ -71,7 +71,8 @@ public class Main extends InterfaceJuego{
 				if(nivel.arriba) {
 					nivel.mapa.mapa[i].moverArr(5);
 				}if(nivel.abajo) {
-					nivel.mapa.mapa[i].moverAb(5);
+					nivel.mapa.mapa[i].moverAb(10);
+					gato.setPosY(gato.getPosY()-3);
 				}
 			}
 			nivel.dibujar(entorno, i);	
@@ -126,7 +127,7 @@ public class Main extends InterfaceJuego{
 		nivel.moverMapa=false;
 		if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
 			
-			if(gato.getPosX()<=140 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
+			if(gato.getPosX()<=200 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
 				nivel.moverMapa=true;
 			}else {
 				gato.mover = true;
@@ -136,7 +137,7 @@ public class Main extends InterfaceJuego{
 		}
 		if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
 			
-			if(gato.getPosX()>=530 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
+			if(gato.getPosX()>=430 && Fisicas.contacto(gato, nivel.mapa.mapa)) {
 				nivel.moverMapa=true;
 			}else {
 				gato.mover = true;
@@ -147,18 +148,27 @@ public class Main extends InterfaceJuego{
 		if(gato.getPosY()<=120){
 			nivel.moverMapa=true;
 			nivel.arriba=true;
-			gato.setPosY(gato.getPosY()+5);
+			gato.setPosY(gato.getPosY()+4);
 			
+		}else if(gato.getPosY()<100){
+			nivel.moverMapa=true;
+			nivel.arriba=true;
+			
+			//gato.setPosY(240);
 		}else {
 			nivel.arriba=false;
 		}
 		if(gato.getPosY()>=360 && Fisicas.colision(gato, nivel.mapa.mapa)==false){
-			gato.setPosY(gato.getPosY()-5);
+			gato.setPosY(gato.getPosY()-4);
 			nivel.moverMapa=true;
 			nivel.abajo=true;
-		}else{
-			nivel.abajo=false;
+		}else if(gato.getPosY()>250){
+			nivel.moverMapa=true;
+			nivel.abajo=true;
+			
 			//gato.setPosY(240);
+		}else {
+			nivel.abajo=false;
 		}
 		//nivel.moverMapa(gato);
 

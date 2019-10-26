@@ -154,60 +154,60 @@ public class Nivel {
 		for(int i=0;i<this.eventos.length;i++) {
 			eventos[i].contacto(gato);
 		}
-		if(eventos[3].fin) {
-			if(eventos[3].activado==false) {
-				this.moverMapa=true;
-				gato.mov=false;
-				if(instruccion==0) {
-					gato.avanzar(2);
-					gato.mover=true;
-					if(gato.getPosX()>=300) {
-						eventos[3].instruccion++;
-					}
-				}
+		//if(eventos[3].fin) {
+		//	if(eventos[3].activado==false) {
+		//		this.moverMapa=true;
+		//		gato.mov=false;
+		//		if(instruccion==0) {
+		//			gato.avanzar(2);
+		//			gato.mover=true;
+		//			if(gato.getPosX()>=300) {
+		//				eventos[3].instruccion++;
+		//			}
+		//		}
 				
-				if(gato.getPosX()==300 && instruccion==1) {
+		//		if(gato.getPosX()==300 && instruccion==1) {
 					
-					if(gato.getPosX()==300) {
-						gato.setSaltar(true);
-						eventos[3].instruccion++;
-					}
+		//			if(gato.getPosX()==300) {
+		//				gato.setSaltar(true);
+		//				eventos[3].instruccion++;
+		//			}
 
-				}
-				if(instruccion==2) {
-					gato.mover=true;
-					gato.avanzar(2);
-					if(gato.getPosX()>=450) {
-						eventos[3].instruccion++;
-					}
+		//		}
+		//		if(instruccion==2) {
+		//			gato.mover=true;
+		//			gato.avanzar(2);
+		//			if(gato.getPosX()>=450) {
+		//				eventos[3].instruccion++;
+		//			}
 					
-				}
-				if(instruccion==3) {
-					gato.mover=true;
-					gato.retroceder(2);
-					if(gato.getPosX()<=350) {
-						eventos[3].instruccion++;
-					}
+		//		}
+		//		if(instruccion==3) {
+		//			gato.mover=true;
+		//			gato.retroceder(2);
+		//			if(gato.getPosX()<=350) {
+		//				eventos[3].instruccion++;
+		//			}
 					
-				}
-				if(instruccion==4) {
-					gato.mover=true;
-					gato.avanzar(2);
+		//		}
+		//		if(instruccion==4) {
+		//			gato.mover=true;
+		//			gato.avanzar(2);
 					
-					if(gato.getPosX()>=800) {
-						gato.mover=false;
-						gato.mov=true;
-						eventos[3].fin=false;
-						eventos[3].instruccion++;
-					}
-				}
+		//			if(gato.getPosX()>=800) {
+		//				gato.mover=false;
+		//				gato.mov=true;
+		//				eventos[3].fin=false;
+		//				eventos[3].instruccion++;
+		//			}
+		//		}
 				
-				System.out.println(instruccion);
+		//		System.out.println(instruccion);
 				
 
 
-			}
-		}
+		//	}
+		//}
 		
 		
 	}
